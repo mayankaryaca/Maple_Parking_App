@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Maple">
+        android:theme="@style/Theme.Maple.NoActionBar">
         <activity android:name=".ParkingDetailActivity"></activity>
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".ProfileActivity" />
@@ -16,8 +16,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginScreenActivity" />
         <activity
-            android:name=".SplashScreenActivity"
-            android:theme="@style/Theme.Maple.NoActionBar">
+            android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

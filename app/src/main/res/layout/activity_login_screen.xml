@@ -7,11 +7,16 @@
     tools:context=".LoginScreenActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LoginView"
-        tools:layout_editor_absoluteX="173dp"
-        tools:layout_editor_absoluteY="306dp"
-        tools:ignore="MissingConstraints" />
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/app_color"
+        android:textSize="50dp"
+        android:fontFamily = "serif-monospace"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
