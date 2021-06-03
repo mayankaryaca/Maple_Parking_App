@@ -20,7 +20,7 @@ Android Emulator: Google Pixel 4XL
 student ID: 101280022
     
 [Mayank](https://github.com/mayankaryaca)
-student ID: 
+student ID: 101300566
     
 ## :gear: Funcionalities
 
@@ -77,7 +77,7 @@ student ID:
     For this project we choose Cloud Firestore Database solution 
 
     - By Mayank
-        - Sign 
+        - Sign In
  
     - By Wanja:     
         - Sign out
