@@ -11,7 +11,7 @@ import com.example.maple.ViewControllers.MapleSharedPreferences;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private Handler delayHandler = new Handler();
-    private boolean isRememberMeValid = false;
+    private boolean isRememberMeValid = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         finish();
                     }else{
 
-                        Intent intent = new Intent(getApplicationContext(), LoginScreenActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
                     }

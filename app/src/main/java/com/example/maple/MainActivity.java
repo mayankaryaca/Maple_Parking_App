@@ -3,13 +3,11 @@ package com.example.maple;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,13 +27,12 @@ public class MainActivity extends AppCompatActivity {
         View view = this.binding.getRoot();
         setContentView(view);
 
+
         this.binding.fabAddParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "Add Parking clicked");
-                Intent intent = new Intent(getApplicationContext(), AddParkingActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
 
@@ -48,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.maple_home:
                         Log.d("TAG", "Home clicked");
+                        Fragment parkingListFragment = new ParkingListFragment();
+                        loadFragment(parkingListFragment);
                         return true;
                     case R.id.maple_profile:
                         Log.d("TAG", "Profile clicked");
-                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        finish();
+                        Fragment profileFragment = new ProfileFragment();
+                        loadFragment(profileFragment);
+
                         return true;
                 }
                 return false;
@@ -62,5 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//frame_container is your layout name in xml file
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 }
