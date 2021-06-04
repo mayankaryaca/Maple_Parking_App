@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         View view = this.binding.getRoot();
         setContentView(view);
 
+        Fragment parkingListFragment = new ParkingListFragment();
+        loadFragment(parkingListFragment);
 
         this.binding.fabAddParking.setOnClickListener(new View.OnClickListener() {
             @Override
