@@ -6,4 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".ParkingDetailActivity">
 
+    <TextView
+        android:id="@+id/app_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/app_color"
+        android:textSize="50dp"
+        android:fontFamily = "serif-monospace"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCarPlate"
+        android:text="Car Plate"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAddress"
+        android:text="Address"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/tvCarPlate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDateParking"
+        android:text="Date"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvParkingHours"
+        android:text="Parking Hours"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateParking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvBuilding"
+        android:text="Building"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/tvParkingHours"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSlot"
+        android:text="Slot"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/tvBuilding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    />
+
+    <Button
+        android:id="@+id/btUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Location"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
