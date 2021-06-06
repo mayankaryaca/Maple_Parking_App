@@ -1,5 +1,6 @@
 package com.example.maple;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.maple.databinding.FragmentAddParkingBinding;
 
@@ -33,7 +35,6 @@ public class AddParkingFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.parking_hours, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         Spinner parkingSpinner = view.findViewById(R.id.sNumOfHours);
         parkingSpinner.setAdapter(adapter);
 
