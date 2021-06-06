@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "Add Parking clicked");
-
+                Fragment addParkingFragment = new AddParkingFragment();
+                loadFragment(addParkingFragment);
             }
         });
 
