@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileFragment">
+    android:layout_marginBottom="25dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <TextView
-        android:id="@+id/app_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@color/app_color"
-        android:textSize="50dp"
+        android:id="@+id/tvFirstName"
+        android:text="FirstName"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="display first Name"
+        android:id="@+id/tvDisplayFirstName"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvName"
-        android:text="Enter Name"
+        android:id="@+id/tvLastName"
+        android:text="Last Name"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/app_logo"
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayFirstName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -38,27 +54,27 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Name here"
-        android:id="@+id/etName"
+        android:hint="display lastname "
+        android:id="@+id/displayLastName"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvUsername"
-        android:text="Enter Username"
+        android:id="@+id/tvPhoneNumber"
+        android:text="Phone Number"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/displayLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -66,52 +82,12 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Username here"
-        android:id="@+id/etUsername"
+        android:hint="display Phone Number"
+        android:id="@+id/tvDisplayPhoneNumber"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPassword"
-        android:text="Enter Password"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
-        android:fontFamily = "serif-monospace"
-        android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Password here"
-        android:id="@+id/etEditPassword"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password here"
-        android:id="@+id/etConfirmPassword"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/etEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -119,15 +95,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvContactNumber"
-        android:text="Enter Contact Number"
+        android:id="@+id/tvPlateNumber"
+        android:text="Plate Number"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayPhoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     />
@@ -135,27 +111,27 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Contact Number here (optional)"
-        android:id="@+id/etContactNumber"
+        android:hint=" display Plate Number"
+        android:id="@+id/tvDisplayPlateNumber"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvContactNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlateNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvCarPlate"
-        android:text="Enter Car Plate"
+        android:id="@+id/tvEmailId"
+        android:text="Email Id"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/etContactNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayPlateNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     />
@@ -163,32 +139,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Car Plate"
-        android:id="@+id/etCarPlate"
+        android:hint="display email"
+        android:id="@+id/etEmailId"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvCarPlate"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+
 
     <Button
-        android:id="@+id/btUpdate"
+        android:id="@+id/btUpdateProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Profile"
-        app:layout_constraintBottom_toTopOf="@+id/btDelete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCarPlate"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
