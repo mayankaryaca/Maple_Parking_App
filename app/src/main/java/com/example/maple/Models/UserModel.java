@@ -9,6 +9,7 @@ public class UserModel {
     private String carPlate;
     private Boolean active;
 
+
     public UserModel(String name, String email, String password, String contact, String carPlate, Boolean active) {
         this.name = name;
         this.email = email;
@@ -16,6 +17,9 @@ public class UserModel {
         this.contact = contact;
         this.carPlate = carPlate;
         this.active = active;
+    }
+
+    public UserModel() {
     }
 
     public String getId() {
@@ -76,13 +80,14 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "UserModel{" +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", contact='" + contact + '\'' +
                 ", carPlate='" + carPlate + '\'' +
+                ", active=" + active +
                 '}';
     }
 }

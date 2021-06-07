@@ -5,16 +5,19 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.maple.Models.ParkingModel;
 import com.example.maple.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +25,9 @@ import java.util.Map;
 public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final FirebaseFirestore db;
-    private final String COLLECTION_NAME = "Users";
-    public  MutableLiveData<List<UserModel>> allUsers = new MutableLiveData<List<UserModel>>();
-    public MutableLiveData<UserModel> userFromDB = new MutableLiveData<>();
+    private final String COLLECTION_USER = "Users";
+    private final String COLLECTION_PARKING = "Parkings";
+    public MutableLiveData<UserModel> userData = new MutableLiveData<UserModel>();
 
     public UserRepository() {
         db = FirebaseFirestore.getInstance();
@@ -35,22 +38,23 @@ public class UserRepository {
             Map<String, Object> data = new HashMap<>();
             data.put("name", user.getName());
             data.put("email", user.getEmail());
-            data.put("password", user.getName());
+            data.put("password", user.getPassword());
             data.put("contact", user.getContact());
             data.put("carPlate", user.getCarPlate());
+            data.put("active", user.getActive());
 
-            db.collection(COLLECTION_NAME)
+            db.collection(COLLECTION_USER)
                     .add(data)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "onSuccess: Document added successfully" + documentReference.getId());
+                            Log.d(TAG, "onSuccess: User document added successfully" + documentReference.getId());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "onFailure: Error creating document on Firestore" + e.getLocalizedMessage());
+                            Log.e(TAG, "onFailure: Error creating User document on Firestore" + e.getLocalizedMessage());
                         }
                     });
 
@@ -60,8 +64,10 @@ public class UserRepository {
     }
 
     public void searchUser(String email) {
+        Log.d(TAG, "searchUser EMAIL " + email);
+
         try {
-            db.collection(COLLECTION_NAME)
+            db.collection(COLLECTION_USER)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -71,7 +77,7 @@ public class UserRepository {
                                 if (task.getResult().getDocuments().size() != 0) {
                                     UserModel matchUser = (UserModel) task.getResult().getDocuments().get(0).toObject(UserModel.class);
                                     matchUser.setId((task.getResult().getDocuments().get(0).getId()));
-                                    userFromDB.postValue(matchUser);
+                                    userData.postValue(matchUser);
                                     Log.d(TAG, "onComplete matched " + matchUser.toString());
                                 }else{
                                     Log.e(TAG, "onComplete No User with given email" );
@@ -87,12 +93,12 @@ public class UserRepository {
         try{
             Map<String, Object> updateInfo = new HashMap<>();
             updateInfo.put("name", user.getName());
-            updateInfo.put("email", user.getEmail() );
-            updateInfo.put("password", user.getPassword() );
-            updateInfo.put("contact", user.getContact() );
-            updateInfo.put("carPlate", user.getCarPlate() );
+            updateInfo.put("email", user.getEmail());
+            updateInfo.put("password", user.getPassword());
+            updateInfo.put("contact", user.getContact());
+            updateInfo.put("carPlate", user.getCarPlate());
 
-            db.collection(COLLECTION_NAME)
+            db.collection(COLLECTION_USER)
                     .document(user.getId())
                     .update(updateInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -112,18 +118,22 @@ public class UserRepository {
         }
     }
 
+    // Delete - Update active: False
     public void deleteUser(UserModel user){
+        Log.d(TAG, " Deleted (Active false)  " + user);
+
         try{
             Map<String, Object> updateInfo = new HashMap<>();
             updateInfo.put("active", user.getActive());
 
-            db.collection(COLLECTION_NAME)
+            Log.d(TAG, " Update to  false " + user.getActive());
+            db.collection(COLLECTION_USER)
                     .document(user.getId())
                     .update(updateInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Log.d(TAG, "onSuccess: Document updated(deleted) successfully");
+                            Log.d(TAG, "onSuccess: Document Deleted (Active false) successfully");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

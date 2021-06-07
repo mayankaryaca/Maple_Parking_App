@@ -33,7 +33,7 @@ public class UserViewModel extends AndroidViewModel {
 
     public void searchUser(String email){
         this.userRepository.searchUser(email);
-        this.matchedUser = this.userRepository.userFromDB;
+        this.matchedUser = this.userRepository.userData;
     }
 
     public void updateUser(UserModel user){
