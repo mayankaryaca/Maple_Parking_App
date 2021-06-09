@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "59424546701",
+    "project_id": "mapleparking-73f43",
+    "storage_bucket": "mapleparking-73f43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59424546701:android:932b22583ad7bb585327c4",
+        "android_client_info": {
+          "package_name": "com.example.maple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59424546701-08jgl0i7em0k2jmu3ochij1ob18rvhdg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChiT5f1aRmW3xvpRFZjknkCywqhdLy-gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59424546701-08jgl0i7em0k2jmu3ochij1ob18rvhdg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
