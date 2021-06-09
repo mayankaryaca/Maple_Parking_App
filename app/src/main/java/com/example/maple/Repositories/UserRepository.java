@@ -1,19 +1,24 @@
 package com.example.maple.Repositories;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.maple.Models.ParkingModel;
+import com.example.maple.Models.Parking;
 import com.example.maple.Models.UserModel;
+import com.example.maple.ViewControllers.MapleSharedPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
@@ -28,6 +33,8 @@ public class UserRepository {
     private final String COLLECTION_USER = "Users";
     private final String COLLECTION_PARKING = "Parkings";
     public MutableLiveData<UserModel> userData = new MutableLiveData<UserModel>();
+    public MutableLiveData<ArrayList<Parking>> allParkings = new MutableLiveData<>();
+
 
     public UserRepository() {
         db = FirebaseFirestore.getInstance();
@@ -145,5 +152,85 @@ public class UserRepository {
         }catch (Exception ex){
             Log.e(TAG, "deleteUser-update: Unable to update document " + ex.getLocalizedMessage() );
         }
+    }
+
+    public void addParking(Parking newParking){
+        try{
+            Map<String,Object> newParkingData = new HashMap<>();
+            newParkingData.put( "building_number", newParking.getBuilding_number());
+            newParkingData.put( "apt_number", newParking.getApt_number());
+            newParkingData.put( "plate_number", newParking.getPlate_number());
+            newParkingData.put( "number_of_hours", newParking.getNumber_of_hours());
+            newParkingData.put( "street_address", newParking.getStreet_address());
+            newParkingData.put( "geo_location_lat", newParking.getGeo_location_lat());
+            newParkingData.put( "geo_location_lng", newParking.getGeo_location_lng());
+            newParkingData.put( "user_id", newParking.getUser_id());
+
+
+            db.collection(COLLECTION_PARKING).add(newParkingData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Log.d(TAG,"OnAddSuccess : "+ documentReference.getId());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG,"OnAddFailure : "+ e.getLocalizedMessage());
+                }
+            });
+
+        }catch(Exception e){
+            Log.d(TAG,"AddFriendFirebase : " + e.getLocalizedMessage());
+        }
+    }
+
+    public void getAllParkings(){
+        try{
+            db.collection(COLLECTION_PARKING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(QuerySnapshot value, FirebaseFirestoreException error) {
+                    if(error!= null){
+                        Log.e(TAG, "OnEvent : Listening to collection failed due to : " + error);
+                        return;
+                    }
+
+                    ArrayList<Parking> parkingList = new ArrayList<>();
+                    if(value.isEmpty()){
+                        Log.d(TAG,"Empty or not change in collection" + value);
+                    }else{
+                        //We have changes in the collection
+                        Log.d(TAG,"OnEvent : current data : "+ value);
+
+                        for (DocumentChange documentChange: value.getDocumentChanges()){
+                            Parking currentParking = documentChange.getDocument().toObject(Parking.class);
+
+                            Log.d(TAG,"On Event : current parking  : "+ currentParking.toString());
+
+                            switch (documentChange.getType()){
+                                case ADDED:
+                                    parkingList.add(currentParking);
+                                    //do some operation for new document
+                                    break;
+                                case MODIFIED:
+                                    //do some operation for updated document
+
+                                    break;
+                                case REMOVED:
+                                    //do some operation for deleted document
+
+//                                        friendList.remove(currentFriend);
+                                    break;
+                            }
+                        }
+                    }
+                    //here it is telling change to other UI
+                    allParkings.postValue(parkingList);
+                }
+
+            });
+        }catch(Exception e){
+            Log.e(TAG,"Retrieve Parkings" + e);
+        }
+
     }
 }

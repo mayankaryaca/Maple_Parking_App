@@ -32,6 +32,9 @@ public class MapleSharedPreferences {
     }
 
 
+    public String getUserId(){
+        return mapleSharedPreferences.getString(FAUTH_ID,"");
+    }
     public boolean isRememberMeValid(){
         return mapleSharedPreferences.getBoolean(REMEMBER_ME,false);
     }
