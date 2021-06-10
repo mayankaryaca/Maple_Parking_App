@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.firestore.model.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,7 +155,8 @@ public class UserRepository {
         }
     }
 
-    public void addParking(Parking newParking){
+    boolean addParkingSuccess = false;
+    public boolean addParking(Parking newParking){
         try{
             Map<String,Object> newParkingData = new HashMap<>();
             newParkingData.put( "building_number", newParking.getBuilding_number());
@@ -171,16 +173,20 @@ public class UserRepository {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d(TAG,"OnAddSuccess : "+ documentReference.getId());
+                    addParkingSuccess = true;
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e(TAG,"OnAddFailure : "+ e.getLocalizedMessage());
+
                 }
             });
+            return addParkingSuccess;
 
         }catch(Exception e){
             Log.d(TAG,"AddFriendFirebase : " + e.getLocalizedMessage());
+            return addParkingSuccess;
         }
     }
 
@@ -200,27 +206,12 @@ public class UserRepository {
                     }else{
                         //We have changes in the collection
                         Log.d(TAG,"OnEvent : current data : "+ value);
+                        for(DocumentSnapshot document : value.getDocuments()){
 
-                        for (DocumentChange documentChange: value.getDocumentChanges()){
-                            Parking currentParking = documentChange.getDocument().toObject(Parking.class);
+                            Parking currentParking = document.toObject(Parking.class);
+                            currentParking.setDoc_id(document.getId());
+                            parkingList.add(currentParking);
 
-                            Log.d(TAG,"On Event : current parking  : "+ currentParking.toString());
-
-                            switch (documentChange.getType()){
-                                case ADDED:
-                                    parkingList.add(currentParking);
-                                    //do some operation for new document
-                                    break;
-                                case MODIFIED:
-                                    //do some operation for updated document
-
-                                    break;
-                                case REMOVED:
-                                    //do some operation for deleted document
-
-//                                        friendList.remove(currentFriend);
-                                    break;
-                            }
                         }
                     }
                     //here it is telling change to other UI
@@ -232,5 +223,25 @@ public class UserRepository {
             Log.e(TAG,"Retrieve Parkings" + e);
         }
 
+    }
+
+    public void deleteParking(String docId){
+        try{
+            db.collection(COLLECTION_PARKING).document(docId).delete().addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e(TAG, " Delete Parking Error" + e.getLocalizedMessage());
+
+                }
+            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG, "Delete Parking Success");
+
+                }
+            });
+        }catch(Exception e){
+            Log.e(TAG, "Error" + e.getLocalizedMessage());
+        }
     }
 }
