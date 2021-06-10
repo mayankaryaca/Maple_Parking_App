@@ -10,6 +10,7 @@ public class MapleSharedPreferences {
     private String USER_NAME = "Username";
     private String PASSWORD = "Password";
     private String REMEMBER_ME = "RememberMe";
+    private String FAUTH_ID = "FirebaseUserId";
 
     private static SharedPreferences mapleSharedPreferences;
     private static SharedPreferences.Editor mapleEditor;
@@ -22,11 +23,17 @@ public class MapleSharedPreferences {
 
 
 
-    public void loginUser(String username, String password, Boolean rememberMe){
+    public void loginUser(String username, String password, Boolean rememberMe,String UID){
         mapleEditor.putString(USER_NAME,username);
         mapleEditor.putString(PASSWORD, password);
         mapleEditor.putBoolean(REMEMBER_ME, rememberMe);
+        mapleEditor.putString(FAUTH_ID, UID);
         mapleEditor.commit();
+    }
+
+
+    public String getUserId(){
+        return mapleSharedPreferences.getString(FAUTH_ID,"");
     }
     public boolean isRememberMeValid(){
         return mapleSharedPreferences.getBoolean(REMEMBER_ME,false);
