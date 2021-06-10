@@ -25,8 +25,7 @@ import java.util.Map;
 public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final FirebaseFirestore db;
-    private final String COLLECTION_USER = "Users";
-    private final String COLLECTION_PARKING = "Parkings";
+    private final String COLLECTION_NAME = "Users";
     public MutableLiveData<UserModel> userData = new MutableLiveData<UserModel>();
 
     public UserRepository() {
@@ -43,7 +42,7 @@ public class UserRepository {
             data.put("carPlate", user.getCarPlate());
             data.put("active", user.getActive());
 
-            db.collection(COLLECTION_USER)
+            db.collection(COLLECTION_NAME)
                     .add(data)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -64,23 +63,24 @@ public class UserRepository {
     }
 
     public void searchUser(String email) {
-        Log.d(TAG, "searchUser EMAIL " + email);
+        Log.d(TAG, "searchUser Email  " + email);
 
         try {
-            db.collection(COLLECTION_USER)
+            db.collection(COLLECTION_NAME)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 if (task.getResult().getDocuments().size() != 0) {
                                     UserModel matchUser = (UserModel) task.getResult().getDocuments().get(0).toObject(UserModel.class);
-                                    matchUser.setId((task.getResult().getDocuments().get(0).getId()));
+                                    matchUser.setId(task.getResult().getDocuments().get(0).getId());
                                     userData.postValue(matchUser);
-                                    Log.d(TAG, "onComplete matched " + matchUser.toString());
-                                }else{
-                                    Log.e(TAG, "onComplete No User with given email" );
+                                    Log.e(TAG, "onComplete - User found "  + matchUser.toString());
+                                } else {
+                                    Log.d(TAG, "onComplete No user found  - Will Add " + email);
+                                    userData.postValue(null);
                                 }
                             }
                         }
@@ -89,6 +89,7 @@ public class UserRepository {
             Log.e(TAG, "searchUser(): " + ex.getLocalizedMessage());
         }
     }
+
     public void updateUser(UserModel user){
         try{
             Map<String, Object> updateInfo = new HashMap<>();
@@ -98,7 +99,7 @@ public class UserRepository {
             updateInfo.put("contact", user.getContact());
             updateInfo.put("carPlate", user.getCarPlate());
 
-            db.collection(COLLECTION_USER)
+            db.collection(COLLECTION_NAME)
                     .document(user.getId())
                     .update(updateInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -119,31 +120,52 @@ public class UserRepository {
     }
 
     // Delete - Update active: False
-    public void deleteUser(UserModel user){
-        Log.d(TAG, " Deleted (Active false)  " + user);
+    public void deleteUser(String userID){
+        Log.d(TAG, " deleteUser (Active false)  " + userID);
 
         try{
-            Map<String, Object> updateInfo = new HashMap<>();
-            updateInfo.put("active", user.getActive());
-
-            Log.d(TAG, " Update to  false " + user.getActive());
-            db.collection(COLLECTION_USER)
-                    .document(user.getId())
-                    .update(updateInfo)
+            db.collection(COLLECTION_NAME)
+                     .document(userID)
+                     .update("active", false)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Log.d(TAG, "onSuccess: Document Deleted (Active false) successfully");
+                            Log.d(TAG, "deleteUser - onSuccess: Document Deleted (Active false) successfully");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: Unable to update document");
+                            Log.d(TAG, "deleteUser - onFailure: Unable to update document");
                         }
                     });
         }catch (Exception ex){
-            Log.e(TAG, "deleteUser-update: Unable to update document " + ex.getLocalizedMessage() );
+            Log.e(TAG, "deleteUser - update: Unable to update document " + ex.getLocalizedMessage() );
+        }
+    }
+
+    // Recovery User - Update active: True
+    public void updateStatus(String userID){
+        Log.d(TAG, "RecoveryUser - (Active true)  " + userID);
+
+        try{
+            db.collection(COLLECTION_NAME)
+                    .document(userID)
+                    .update("active", true)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "recoveryUser - onSuccess: Document Recovery (Active true) successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "recoveryUser - onFailure: Unable to update document");
+                        }
+                    });
+        }catch (Exception ex){
+            Log.e(TAG, "recoveryUser - update: Unable to update document " + ex.getLocalizedMessage() );
         }
     }
 }
