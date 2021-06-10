@@ -12,6 +12,7 @@ public class Parking implements Serializable {
     String geo_location_lat;
     String geo_location_lng;
     String user_id;
+    String doc_id;
 
     public Parking(){
 
@@ -104,5 +105,13 @@ public class Parking implements Serializable {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getDoc_id() {
+        return doc_id;
+    }
+
+    public void setDoc_id(String doc_id) {
+        this.doc_id = doc_id;
     }
 }

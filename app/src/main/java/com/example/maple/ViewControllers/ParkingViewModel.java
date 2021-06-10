@@ -29,7 +29,8 @@ public class ParkingViewModel extends AndroidViewModel {
         return ourInstance;
     }
 
-    public void addNewParking(Parking newParking){
-        this.userRepository.addParking(newParking);
+    public boolean addNewParking(Parking newParking){
+       boolean isSuccess =  this.userRepository.addParking(newParking);
+       return isSuccess;
     }
 }

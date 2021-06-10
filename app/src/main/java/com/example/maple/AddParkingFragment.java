@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.maple.Models.Parking;
 import com.example.maple.ViewControllers.MapleSharedPreferences;
@@ -79,7 +80,13 @@ public class AddParkingFragment extends Fragment {
 
 
                 Parking parking = new Parking(building_number,apt_number,plate_number,number_of_hours,street_address,geo_location_lat,geo_location_lng,user_id);
-                parkingViewModel.addNewParking(parking);
+                boolean isSuccess = parkingViewModel.addNewParking(parking);
+                if(isSuccess){
+                    Toast.makeText(getContext(), "Parking Added successfully", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(getContext(), "Error occured. Please try again later", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;

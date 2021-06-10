@@ -1,5 +1,6 @@
 package com.example.maple;
 
+import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
@@ -49,7 +50,7 @@ public class ParkingListFragment extends Fragment {
         binding.rvParkingList.setHasFixedSize(true);
         binding.rvParkingList.setAdapter(adapter);
 
-        //Recieving pparking list data
+        //Recieving parking list data
         this.parkingViewModel = ParkingViewModel.getInstance(getActivity().getApplication());
         recieveParkingData();
 
@@ -69,13 +70,11 @@ public class ParkingListFragment extends Fragment {
             public void onChanged(List<Parking> parkings) {
                 parkingList.clear();
                 parkingList.addAll(parkings);
-
                 adapter.notifyDataSetChanged();
 
                 if(parkings != null){
                     for(Parking parking : parkings){
                         Log.d("TAG","OnChanged : "+ parking.toString());
-
                     }
                 }
             }
