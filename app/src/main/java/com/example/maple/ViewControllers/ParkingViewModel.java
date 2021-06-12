@@ -33,4 +33,8 @@ public class ParkingViewModel extends AndroidViewModel {
        boolean isSuccess =  this.userRepository.addParking(newParking);
        return isSuccess;
     }
+
+    public void deleteparking(String docId){
+        this.userRepository.deleteParking(docId);
+    }
 }

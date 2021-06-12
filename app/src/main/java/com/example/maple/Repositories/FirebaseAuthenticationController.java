@@ -35,7 +35,6 @@ public class FirebaseAuthenticationController {
         return currentUser;
     }
 
-
     public void firebaseAuthSignUpUser(Context context, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {

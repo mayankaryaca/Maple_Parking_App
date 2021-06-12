@@ -7,12 +7,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.maple.Helpers.LocationHelper;
 import com.example.maple.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,12 +24,18 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     public final String TAG = this.getClass().getCanonicalName();
+    private LocationHelper locationHelper;
+    private Location lastLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = this.binding.getRoot();
         setContentView(view);
+
+        this.locationHelper = LocationHelper.getInstance();
+        this.locationHelper.checkPermissions(this);
 
         Fragment parkingListFragment = new ParkingListFragment();
         loadFragment(parkingListFragment);

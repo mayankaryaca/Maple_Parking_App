@@ -45,7 +45,7 @@ public class ParkingListFragment extends Fragment {
         View view = binding.getRoot();
 
         //Recycler View
-        adapter = new ParkingListRecyclerViewAdapter(parkingList);
+        adapter = new ParkingListRecyclerViewAdapter(parkingList, binding.getRoot().getContext());
         binding.rvParkingList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvParkingList.setHasFixedSize(true);
         binding.rvParkingList.setAdapter(adapter);
