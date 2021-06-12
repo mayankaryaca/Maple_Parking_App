@@ -9,7 +9,6 @@ public class UserModel {
     private String carPlate;
     private Boolean active;
 
-
     public UserModel(String name, String email, String password, String contact, String carPlate, Boolean active) {
         this.name = name;
         this.email = email;
