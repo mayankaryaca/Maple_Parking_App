@@ -6,11 +6,13 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13489583333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_parking.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_edit_parking_details.xml" value="0.1933876811594203" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_parking_details.xml" value="0.23385416666666667" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/parking_list_cell_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2441025641025641" />
       </map>
     </option>
   </component>

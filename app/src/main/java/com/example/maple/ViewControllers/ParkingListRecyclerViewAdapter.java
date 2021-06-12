@@ -1,6 +1,7 @@
 package com.example.maple.ViewControllers;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,51 +20,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.maple.Models.Parking;
 import com.example.maple.ParkingDetailsFragment;
 import com.example.maple.R;
+import com.example.maple.databinding.ParkingListCellLayoutBinding;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingListRecyclerViewAdapter extends RecyclerView.Adapter<ParkingListRecyclerViewAdapter.ViewHolder> {
+public class ParkingListRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private List<Parking> parkingList;
+    private Context context;
 
-    public ParkingListRecyclerViewAdapter(List<Parking> parkingList) {
+    public ParkingListRecyclerViewAdapter(List<Parking> parkingList,Context context) {
         this.parkingList = parkingList;
+        this.context = context;
+
     }
 
     @Override
-    public ParkingListRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.parking_list_cell_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(listItem);
-        return viewHolder;      }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        ParkingListCellLayoutBinding binding = ParkingListCellLayoutBinding.inflate(LayoutInflater.from(this.context), viewGroup, false);
+        return new ViewHolder(binding);
+    }
 
 
     @Override
-    public void onBindViewHolder(@NonNull ParkingListRecyclerViewAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         if(parkingList != null){
             Parking parking = parkingList.get(position);
-
-            Log.d("TAG",parking.toString());
-        holder.tvparkingHeading.setText(parking.getBuilding_number());
-        holder.tvStreetAddress.setText(parking.getStreet_address());
-
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                ParkingDetailsFragment myFragment = new ParkingDetailsFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("PARKING",parking);
-                myFragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, myFragment).addToBackStack(null).commit();
-            }
-        });
-
-
+            holder.bind(this.context,parking);
         }
     }
 
@@ -76,15 +62,9 @@ public class ParkingListRecyclerViewAdapter extends RecyclerView.Adapter<Parking
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvparkingHeading;
-        public TextView tvStreetAddress;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            this.tvparkingHeading = (TextView) itemView.findViewById(R.id.tvBuildingCode);
-            this.tvStreetAddress = (TextView) itemView.findViewById(R.id.tvAddress);
-        }
 
-    }
+
+
+
 
 }
