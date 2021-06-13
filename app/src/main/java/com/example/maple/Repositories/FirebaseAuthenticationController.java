@@ -21,6 +21,7 @@ public class FirebaseAuthenticationController {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     MutableLiveData<Boolean> isLoginSuccess = new MutableLiveData<>() ;
+    MutableLiveData<Boolean> isCreated = new MutableLiveData<>() ;
 
     public FirebaseAuth getInstance(){
         mAuth = FirebaseAuth.getInstance();
@@ -36,21 +37,23 @@ public class FirebaseAuthenticationController {
     }
 
 
-    public void firebaseAuthSignUpUser(Context context, String email, String password) {
+    public MutableLiveData<Boolean> firebaseAuthSignUpUser(Context context, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            isCreated.setValue(true);
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            // Password must have at least 6 characters
+                            // The email address is already in use by another account
+                            isCreated.setValue(false);
                         }
                     }
                 });
+        return isCreated;
     }
 
 
@@ -63,7 +66,6 @@ public class FirebaseAuthenticationController {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             isLoginSuccess.setValue(true);
-
                         } else {
                             Log.e(TAG, "signInWithEmail:failure", task.getException());
                             isLoginSuccess.setValue(false);

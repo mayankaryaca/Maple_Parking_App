@@ -23,12 +23,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvName"
-        android:text="Enter Name"
+        android:id="@+id/tvFirstName"
+        android:text="Enter First Name"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
         app:layout_constraintTop_toBottomOf="@+id/app_logo"
@@ -39,12 +39,40 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Name here"
-        android:id="@+id/etName"
+        android:hint="Enter First Name here"
+        android:id="@+id/etFirstName"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLastName"
+        android:text="Enter Last Name"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="5dp"
+        android:fontFamily = "serif-monospace"
+        android:textColor="@color/app_color"
+        app:layout_constraintTop_toBottomOf="@+id/etFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Last Name here"
+        android:id="@+id/etLastName"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -56,10 +84,10 @@
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -84,7 +112,7 @@
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
         app:layout_constraintTop_toBottomOf="@+id/etEmail"
@@ -93,29 +121,31 @@
         />
 
     <EditText
+        android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Password here"
-        android:id="@+id/etPassword"
-        android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+        android:hint="Enter Password here"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
+
 
     <EditText
+        android:id="@+id/etConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password here"
-        android:id="@+id/etConfirmPassword"
-        android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        android:hint="Confirm Password here"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <TextView
         android:layout_width="match_parent"
@@ -125,7 +155,7 @@
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
         app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword"
@@ -153,7 +183,7 @@
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
         app:layout_constraintTop_toBottomOf="@+id/etContact"
