@@ -1,5 +1,4 @@
 package com.example.maple.Repositories;
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -29,16 +28,10 @@ import java.util.Map;
 public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final FirebaseFirestore db;
-<<<<<<< HEAD
-=======
-    private final String COLLECTION_USER = "Users";
-    private final String COLLECTION_PARKING = "Parkings";
-    public MutableLiveData<UserModel> userData = new MutableLiveData<UserModel>();
-    public MutableLiveData<ArrayList<Parking>> allParkings = new MutableLiveData<>();
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
 
     private final String COLLECTION_USER = "Users";
     private final String COLLECTION_PROFILE = "Profiles";
+    private final String COLLECTION_PARKING = "Parkings";
     public MutableLiveData<User> userLogin = new MutableLiveData<User>();
     public MutableLiveData<Profile> userProfile = new MutableLiveData<Profile>();
     public MutableLiveData<ArrayList<Parking>> allParkings = new MutableLiveData<>();
@@ -47,7 +40,7 @@ public class UserRepository {
         db = FirebaseFirestore.getInstance();
     }
 
-   public void addUser(User user) {
+    public void addUser(User user) {
         try {
             Map<String, Object> data = new HashMap<>();
             data.put("id", user.getId());
@@ -75,7 +68,6 @@ public class UserRepository {
         }
     }
 
-<<<<<<< HEAD
     public void addProfile(Profile profile) {
         try {
             Map<String, Object> data = new HashMap<>();
@@ -97,28 +89,6 @@ public class UserRepository {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e(TAG, "onFailure: Error creating User document on Firestore" + e.getLocalizedMessage());
-=======
-    public void searchUser(String email) {
-        Log.d(TAG, "searchUser EMAIL " + email);
-
-        try {
-            db.collection(COLLECTION_USER)
-                    .whereEqualTo("email", email)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0) {
-                                    UserModel matchUser = (UserModel) task.getResult().getDocuments().get(0).toObject(UserModel.class);
-                                    matchUser.setId((task.getResult().getDocuments().get(0).getId()));
-                                    userData.postValue(matchUser);
-                                    Log.d(TAG, "onComplete matched " + matchUser.toString());
-                                }else{
-                                    Log.e(TAG, "onComplete No User with given email" );
-                                }
-                            }
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
                         }
                     });
 
@@ -126,7 +96,6 @@ public class UserRepository {
             Log.e(TAG, "Error - addProfile: " + ex.getLocalizedMessage() );
         }
     }
-<<<<<<< HEAD
 
     public void updateProfile(Profile profile){
         try{
@@ -138,19 +107,6 @@ public class UserRepository {
 
             db.collection(COLLECTION_PROFILE)
                     .document(profile.getId())
-=======
-    public void updateUser(UserModel user){
-        try{
-            Map<String, Object> updateInfo = new HashMap<>();
-            updateInfo.put("name", user.getName());
-            updateInfo.put("email", user.getEmail());
-            updateInfo.put("password", user.getPassword());
-            updateInfo.put("contact", user.getContact());
-            updateInfo.put("carPlate", user.getCarPlate());
-
-            db.collection(COLLECTION_USER)
-                    .document(user.getId())
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
                     .update(updateInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -169,53 +125,30 @@ public class UserRepository {
         }
     }
 
-<<<<<<< HEAD
     public void updateStatus(String userID){
         Log.d(TAG, " Update (Active false)  " + userID);
 
         try{
             db.collection(COLLECTION_USER)
-                     .document(userID)
-                     .update("active", false)
-=======
-    // Delete - Update active: False
-    public void deleteUser(UserModel user){
-        Log.d(TAG, " Deleted (Active false)  " + user);
-
-        try{
-            Map<String, Object> updateInfo = new HashMap<>();
-            updateInfo.put("active", user.getActive());
-
-            Log.d(TAG, " Update to  false " + user.getActive());
-            db.collection(COLLECTION_USER)
-                    .document(user.getId())
-                    .update(updateInfo)
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
+                    .document(userID)
+                    .update("active", false)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Log.d(TAG, "onSuccess: Document Deleted (Active false) successfully");
+                            Log.d(TAG, "deleteUser - onSuccess: Document Deleted (Active false) successfully");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: Unable to update document");
+                            Log.d(TAG, "deleteUser - onFailure: Unable to update document");
                         }
                     });
         }catch (Exception ex){
-            Log.e(TAG, "deleteUser-update: Unable to update document " + ex.getLocalizedMessage() );
+            Log.e(TAG, "deleteUser - update: Unable to update document " + ex.getLocalizedMessage() );
         }
     }
 
-<<<<<<< HEAD
-    public void getAllParkings(){
-
-    }
-
-    public Boolean addParking(Parking parking){
-        return true;
-=======
     boolean addParkingSuccess = false;
     public boolean addParking(Parking newParking){
         try{
@@ -240,11 +173,9 @@ public class UserRepository {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e(TAG,"OnAddFailure : "+ e.getLocalizedMessage());
-
                 }
             });
             return addParkingSuccess;
-
         }catch(Exception e){
             Log.d(TAG,"AddFriendFirebase : " + e.getLocalizedMessage());
             return addParkingSuccess;
@@ -260,7 +191,6 @@ public class UserRepository {
                         Log.e(TAG, "OnEvent : Listening to collection failed due to : " + error);
                         return;
                     }
-
                     ArrayList<Parking> parkingList = new ArrayList<>();
                     if(value.isEmpty()){
                         Log.d(TAG,"Empty or not change in collection" + value);
@@ -268,22 +198,18 @@ public class UserRepository {
                         //We have changes in the collection
                         Log.d(TAG,"OnEvent : current data : "+ value);
                         for(DocumentSnapshot document : value.getDocuments()){
-
                             Parking currentParking = document.toObject(Parking.class);
                             currentParking.setDoc_id(document.getId());
                             parkingList.add(currentParking);
-
                         }
                     }
                     //here it is telling change to other UI
                     allParkings.postValue(parkingList);
                 }
-
             });
         }catch(Exception e){
             Log.e(TAG,"Retrieve Parkings" + e);
         }
-
     }
 
     public void deleteParking(String docId){
@@ -292,18 +218,15 @@ public class UserRepository {
                 @Override
                 public void onFailure(Exception e) {
                     Log.e(TAG, " Delete Parking Error" + e.getLocalizedMessage());
-
                 }
             }).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     Log.d(TAG, "Delete Parking Success");
-
                 }
             });
         }catch(Exception e){
             Log.e(TAG, "Error" + e.getLocalizedMessage());
         }
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
     }
 }

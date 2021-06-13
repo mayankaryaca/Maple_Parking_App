@@ -36,12 +36,7 @@ public class FirebaseAuthenticationController {
         return currentUser;
     }
 
-<<<<<<< HEAD
-
     public MutableLiveData<Boolean> firebaseAuthSignUpUser(Context context, String email, String password) {
-=======
-    public void firebaseAuthSignUpUser(Context context, String email, String password) {
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -57,6 +52,7 @@ public class FirebaseAuthenticationController {
                         }
                     }
                 });
+
         return isCreated;
     }
 

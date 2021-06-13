@@ -6,13 +6,7 @@ public class User {
     private String password;
     private Boolean active;
 
-<<<<<<< HEAD:app/src/main/java/com/example/maple/Models/User.java
     public User(String email, String password, Boolean active) {
-=======
-
-    public UserModel(String name, String email, String password, String contact, String carPlate, Boolean active) {
-        this.name = name;
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594:app/src/main/java/com/example/maple/Models/UserModel.java
         this.email = email;
         this.password = password;
         this.active = active;

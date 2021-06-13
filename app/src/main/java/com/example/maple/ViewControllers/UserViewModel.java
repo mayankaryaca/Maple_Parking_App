@@ -32,22 +32,16 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository.addUser(user);
     }
 
-<<<<<<< HEAD
     public void addProfile(Profile profile){
         this.userRepository.addProfile(profile);
-=======
-    public void searchUser(String email){
-        this.userRepository.searchUser(email);
-        this.matchedUser = this.userRepository.userData;
->>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
     }
 
     public void updateProfile(Profile profile){
         this.userRepository.updateProfile(profile);
     }
 
-    public void deleteUser(UserModel user){
-        this.userRepository.deleteUser(user);
+    public void updateStatus(String userID){
+        this.userRepository.updateStatus(userID);
     }
 
 }
