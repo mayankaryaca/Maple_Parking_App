@@ -1,24 +1,19 @@
 package com.example.maple.Models;
 
-public class UserModel {
+public class User {
     private String id;
-    private String name;
     private String email;
     private String password;
-    private String contact;
-    private String carPlate;
     private Boolean active;
 
-    public UserModel(String name, String email, String password, String contact, String carPlate, Boolean active) {
-        this.name = name;
+    public User(String email, String password, Boolean active) {
         this.email = email;
         this.password = password;
-        this.contact = contact;
-        this.carPlate = carPlate;
         this.active = active;
     }
 
-    public UserModel() {
+    public User() {
+
     }
 
     public String getId() {
@@ -27,14 +22,6 @@ public class UserModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -53,22 +40,6 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getCarPlate() {
-        return carPlate;
-    }
-
-    public void setCarPlate(String carPlate) {
-        this.carPlate = carPlate;
-    }
-
     public Boolean getActive() {
         return active;
     }
@@ -79,13 +50,10 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "User{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", contact='" + contact + '\'' +
-                ", carPlate='" + carPlate + '\'' +
                 ", active=" + active +
                 '}';
     }
