@@ -1,7 +1,6 @@
 package com.example.maple.ViewControllers;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -18,8 +17,6 @@ public class UserViewModel extends AndroidViewModel {
     private final UserRepository userRepository = new UserRepository();
     public MutableLiveData<User> matchedUser;
 
-    private final String TAG = this.getClass().getCanonicalName();
-
     public static UserViewModel getInstance(Application application){
         if (ourInstance == null){
             ourInstance = new UserViewModel(application);
@@ -35,16 +32,22 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository.addUser(user);
     }
 
+<<<<<<< HEAD
     public void addProfile(Profile profile){
         this.userRepository.addProfile(profile);
+=======
+    public void searchUser(String email){
+        this.userRepository.searchUser(email);
+        this.matchedUser = this.userRepository.userData;
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
     }
 
     public void updateProfile(Profile profile){
         this.userRepository.updateProfile(profile);
     }
 
-    public void updateStatus(String userID){
-        this.userRepository.updateStatus(userID);
+    public void deleteUser(UserModel user){
+        this.userRepository.deleteUser(user);
     }
 
 }

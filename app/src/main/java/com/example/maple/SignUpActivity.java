@@ -1,10 +1,7 @@
 package com.example.maple;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,16 +13,16 @@ import com.example.maple.Repositories.FirebaseAuthenticationController;
 import com.example.maple.ViewControllers.UserViewModel;
 import com.example.maple.databinding.ActivitySignUpBinding;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivitySignUpBinding binding;
     private final String TAG = this.getClass().getCanonicalName();
     private User newUser;
     private Profile newProfile;
     private UserViewModel userViewModel;
+<<<<<<< HEAD
     private FirebaseAuthenticationController firebaseAuthenticationController = new FirebaseAuthenticationController();
+=======
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
 
     Boolean isValidInput;
 
@@ -63,24 +60,44 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onClick: Saving the User Info");
             if (validateInput()) {
                 Log.d(TAG, "onClick: Validate Input is OK");
+<<<<<<< HEAD
                     this.saveUser();
+=======
+                this.saveDataToDB();
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
             }
         }
     }
 
     private Boolean validateInput(){
+<<<<<<< HEAD
         if (this.binding.etFirstName.getText().toString().isEmpty()){
             this.binding.etFirstName.setError("Please enter Name");
             isValidInput = false;
         }
         if (this.binding.etLastName.getText().toString().isEmpty()){
             this.binding.etLastName.setError("Please enter Name");
+=======
+//        if (this.binding.etName.getText().toString().isEmpty() && this.binding.etEmail.getText().toString().isEmpty()) {
+//            Toast.makeText(this, "Fields should not be empty", Toast.LENGTH_SHORT).show();
+//            Log.e(TAG, "Fields should not be empty");
+//            isValidInput = false;
+//        }
+
+//  OR
+        Log.d(TAG, "validate - begin : " + isValidInput);
+
+
+        if (this.binding.etName.getText().toString().isEmpty()){
+            this.binding.etName.setError("Please enter Name");
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
             isValidInput = false;
         }
         if (this.binding.etEmail.getText().toString().isEmpty()){
             this.binding.etEmail.setError("Please enter Email");
             isValidInput = false;
         }
+<<<<<<< HEAD
         String regex = "(.+)@(.+)\\.([a-zA-Z]+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(this.binding.etEmail.getText().toString());
@@ -91,29 +108,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         if (this.binding.etPassword.getText().toString().isEmpty() || this.binding.etPassword.getText().toString().length() < 6){
             this.binding.etPassword.setError("Password must have at least 6 charactes");
+=======
+        if (this.binding.etPassword.getText().toString().isEmpty()){
+            this.binding.etPassword.setError("Please enter Password");
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
             isValidInput = false;
         }
         if (this.binding.etConfirmPassword.getText().toString().isEmpty() || this.binding.etConfirmPassword.getText().toString().length() < 6) {
             this.binding.etConfirmPassword.setError("Password must have at least 6 charactes");
             isValidInput = false;
         }
-        String password = this.binding.etPassword.getText().toString();
-        String confirmedPassword = this.binding.etConfirmPassword.getText().toString();
-        if (!password.equals(confirmedPassword)) {
-            this.binding.etPassword.setError("Password doesn't match");
-            this.binding.etConfirmPassword.setError("Password doesn't match");
-            isValidInput = false;
-        }
+//        if (this.binding.etContact.getText().toString().isEmpty()){
+//            this.binding.etContact.setError("Please enter Contact Number");
+//            isValidDate = false;
+//        }
         if (this.binding.etCarPlate.getText().toString().isEmpty()){
             this.binding.etCarPlate.setError("Please enter Car Plate");
             isValidInput = false;
-        }
-        if (this.binding.etCarPlate.getText().length() < 2 ||
-                this.binding.etCarPlate.getText().length() > 8) {
-            this.binding.etCarPlate.setError("Car Plate must have 2-8 characters");
-            isValidInput = false;
-        }else{
-            isValidInput = true;
         }
         Log.d(TAG, "validate - end: " + isValidInput);
         return isValidInput;
@@ -129,13 +140,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.binding.etContact.setText("");
         this.binding.etCarPlate.setText("");
     }
+<<<<<<< HEAD
 
     private void saveUser(){
         // USER
+=======
+    private void saveDataToDB(){
+
+        // User exists and is active - "User Already Exists"
+        // User exists and is inactive - "Recovery User"
+        // User doesn't exist - "Insert"
+
+        this.newUser.setName(this.binding.etName.getText().toString());
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
         this.newUser.setEmail(this.binding.etEmail.getText().toString());
         this.newUser.setPassword(this.binding.etPassword.getText().toString());
         this.newUser.setActive(true);
 
+<<<<<<< HEAD
         // PROFILE
         this.newProfile.setFirstName(this.binding.etFirstName.getText().toString());
         this.newProfile.setLastName(this.binding.etLastName.getText().toString());
@@ -185,6 +207,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
+=======
+        Log.d(TAG, "saveDataToDB - Search newUser before Insert : " + newUser.getEmail());
+        this.userViewModel.searchUser(newUser.getEmail());
+
+        Log.d(TAG, "saveDataToDB - Delete/Update user Active : " + newUser.getActive());
+        this.newUser.setActive(false);
+        this.userViewModel.deleteUser(newUser);
+
+//        Log.d(TAG, "saveDataToDB - newUser to Insert : " + this.newUser.toString());
+//        this.userViewModel.addUser(this.newUser);
+>>>>>>> 019cb00e19eaafdc1347966e185be9fcfad6c594
     }
 
 }
