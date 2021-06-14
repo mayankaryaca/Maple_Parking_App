@@ -34,8 +34,6 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
-        <activity android:name=".LoginScreenActivity"/>
-
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".LoginScreenActivity"
