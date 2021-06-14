@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import com.example.maple.Helpers.LocationHelper;
 import com.example.maple.Models.Parking;
+import com.example.maple.Models.Profile;
+import com.example.maple.ViewControllers.MapleSharedPreferences;
 import com.example.maple.ViewControllers.ParkingViewModel;
+import com.example.maple.ViewControllers.UserViewModel;
 import com.example.maple.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private LocationHelper locationHelper;
     private ParkingViewModel parkingViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.locationHelper = LocationHelper.getInstance();
         this.locationHelper.checkPermissions(this);
-
         this.parkingViewModel = ParkingViewModel.getInstance(this.getApplication());
 
         Fragment welcomeScreenMaple = new WelcomeScreenMaple();
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.maple_profile:
                         Log.d("TAG", "Profile clicked");
+
                         Fragment profileFragment = new ProfileFragment();
                         loadFragment(profileFragment);
 
@@ -88,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
 

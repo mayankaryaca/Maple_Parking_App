@@ -107,9 +107,8 @@ public class UserRepository {
             updateInfo.put("contact", profile.getContact());
             updateInfo.put("carPlate", profile.getCarPlate());
 
-            db.collection(COLLECTION_PROFILE)
-                    .document(profile.getId())
-                    .update(updateInfo)
+            Log.d(TAG,"Profile id "+ profile.getId().toString());
+            db.collection(COLLECTION_PROFILE).document(profile.getId()).update(updateInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -119,11 +118,40 @@ public class UserRepository {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: Unable to update document");
+                            Log.d(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
                         }
                     });
         }catch (Exception ex){
             Log.e(TAG, "updateProfile: Unable to update document " + ex.getLocalizedMessage() );
+        }
+    }
+
+    public void getProfile(String id){
+        try{
+            db.collection(COLLECTION_PROFILE).whereEqualTo("id",id).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(QuerySnapshot value, FirebaseFirestoreException error) {
+                    Profile currentProfile = null;
+                    if(error!= null){
+                        Log.e(TAG, "OnEvent : Listening to collection failed due to : " + error);
+                        return;
+                    }
+                    if(value.isEmpty()){
+                        Log.d(TAG,"Empty or not change in collection" + value);
+                    }else{
+                        //We have changes in the collection
+                        Log.d(TAG,"OnEvent : current data : "+ value);
+                        for(DocumentSnapshot document : value.getDocuments()){
+                            currentProfile = document.toObject(Profile.class);
+                            currentProfile.setId(document.getId());
+                        }
+                    }
+                    //here it is telling change to other UI
+                    userProfile.postValue(currentProfile);
+                }
+            });
+        }catch(Exception e){
+            Log.e(TAG,"Retrieve Parkings" + e);
         }
     }
 
