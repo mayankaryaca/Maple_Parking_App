@@ -13,6 +13,14 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()){
+            properties.load(rootProject.file("local.properties").newDataInputStream())
+        }
+        manifestPlaceholders = [mapsApikey : properties.getProperty("MAPS_API_KEY", "")]
+        resValue "string", "mapsApiKey", properties.getProperty("MAPS_API_KEY", "")
+
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,6 +55,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
