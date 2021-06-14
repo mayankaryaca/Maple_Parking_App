@@ -15,19 +15,29 @@ import com.example.maple.databinding.FragmentParkingListBinding;
 
 public class ParkingDetailsFragment extends Fragment {
 
-
     FragmentParkingDetailsBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = FragmentParkingDetailsBinding.inflate(
                 inflater, container, false);
         View view = binding.getRoot();
+
         Bundle bundle = this.getArguments();
-        Parking myValue = (Parking) bundle.getSerializable("PARKING");
-        binding.tvParkingData.setText(myValue.toString() + myValue.getDoc_id());
+        Parking parkingDetail = (Parking) bundle.getSerializable("PARKING");
+
+        parkingUI(view, parkingDetail);
 
         return view;
+    }
+    private void parkingUI(View view, Parking parkingDetail) {
+        this.binding.tvOutputBuildingCode.setText(parkingDetail.getBuilding_number());
+        this.binding.tvOutputApartmentNum.setText(parkingDetail.getApt_number());
+        this.binding.tvOutputPlateNum.setText(parkingDetail.getPlate_number());
+        this.binding.tvOutputNumOfHours.setText(parkingDetail.getNumber_of_hours());
+        this.binding.tvStreet.setText(parkingDetail.getStreet_address());
+        this.binding.tvStreet.setText(parkingDetail.getStreet_address());
     }
 }

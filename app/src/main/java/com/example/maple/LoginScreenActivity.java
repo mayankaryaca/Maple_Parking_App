@@ -50,7 +50,7 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
                        this.firebaseAuthenticationController.firebaseAuthLoginUser(this,emailId,password).observe(this, new Observer<Boolean>() {
                            @Override
                            public void onChanged(Boolean aBoolean) {
-
+                               Log.d(TAG,"IsLoginSuccess : "+ aBoolean);
                                if(aBoolean){
                                    String uid = firebaseAuthenticationController.getUserId();
                                    mapleSharedPreferences.loginUser(emailId,password,rememberMe,uid);
