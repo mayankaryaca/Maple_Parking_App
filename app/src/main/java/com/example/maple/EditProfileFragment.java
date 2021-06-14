@@ -1,6 +1,5 @@
 package com.example.maple;
 
-import android.app.Application;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,14 +13,33 @@ import com.example.maple.Models.Profile;
 import com.example.maple.ViewControllers.UserViewModel;
 import com.example.maple.databinding.FragmentEditProfileBinding;
 
+import com.example.maple.Models.User;
+
 public class EditProfileFragment extends Fragment {
 
     FragmentEditProfileBinding binding;
     UserViewModel userViewModel;
 
+    FragmentEditProfileBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        Bundle bundle = this.getArguments();
+        Profile profile = (Profile) bundle.getSerializable("PROFILE");
+        User user = (User) bundle.getSerializable("USER");
+        profileUI(view, profile, user);
+
+        return view;}
+
+    private void profileUI(View view, Profile profile, User user) {
+        this.binding.etOutputFirstName.setText(profile.getFirstName());
+        this.binding.etOutputLastName.setText(profile.getLastName());
+        this.binding.etOutputEmail.setText(user.getEmail());
+        this.binding.etOutputContact.setText(profile.getContact());
+        this.binding.etOutputPlate.setText(profile.getCarPlate());
         binding = FragmentEditProfileBinding.inflate(
                 inflater, container, false);
         View view = binding.getRoot();
