@@ -16,6 +16,8 @@ public class UserViewModel extends AndroidViewModel {
     private static UserViewModel ourInstance;
     private final UserRepository userRepository = new UserRepository();
     public MutableLiveData<User> matchedUser;
+    public MutableLiveData<Profile> userProfile = new MutableLiveData<Profile>();
+
 
     public static UserViewModel getInstance(Application application){
         if (ourInstance == null){
@@ -36,6 +38,10 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository.addProfile(profile);
     }
 
+    public void getUserProfile(String id){
+        this.userRepository.getProfile(id);
+        this.userProfile = this.userRepository.userProfile;
+    }
     public void updateProfile(Profile profile){
         this.userRepository.updateProfile(profile);
     }

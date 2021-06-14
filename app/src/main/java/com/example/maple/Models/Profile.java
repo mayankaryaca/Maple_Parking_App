@@ -9,7 +9,8 @@ public class Profile implements Serializable {
     private String contact;
     private String carPlate;
 
-    public Profile(String firstName, String lastName, String contact, String carPlate) {
+    public Profile(String id, String firstName, String lastName, String contact, String carPlate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;

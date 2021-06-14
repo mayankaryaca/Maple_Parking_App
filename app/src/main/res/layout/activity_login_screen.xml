@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        app:layout_constraintBottom_toTopOf="@+id/btSignUp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btSignUp"
+        android:id="@+id/btnSignUp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

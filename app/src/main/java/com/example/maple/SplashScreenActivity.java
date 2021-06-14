@@ -2,23 +2,38 @@ package com.example.maple;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 
 import com.example.maple.ViewControllers.MapleSharedPreferences;
+import com.example.maple.databinding.ActivityMainBinding;
+import com.example.maple.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     private Handler delayHandler = new Handler();
     private boolean isRememberMeValid;
+    ActivitySplashScreenBinding binding;
+    RotateAnimation rotate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        this.binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        View view = this.binding.getRoot();
+        setContentView(view);
 
+        rotate = new RotateAnimation(0, 500);
+        rotate.setDuration(1000);
+        this.binding.appCompatImageView.startAnimation(rotate);
 
         MapleSharedPreferences mapleSharedPreferences = new MapleSharedPreferences(getApplicationContext());
         isRememberMeValid = mapleSharedPreferences.isRememberMeValid();

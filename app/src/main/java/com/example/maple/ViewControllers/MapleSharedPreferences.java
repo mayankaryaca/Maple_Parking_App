@@ -8,6 +8,7 @@ import com.example.maple.R;
 public class MapleSharedPreferences {
     private MapleSharedPreferences myInstance;
     private String USER_NAME = "Username";
+    private String EMAIL_ID = "EmailId";
     private String PASSWORD = "Password";
     private String REMEMBER_ME = "RememberMe";
     private String FAUTH_ID = "FirebaseUserId";
@@ -23,8 +24,8 @@ public class MapleSharedPreferences {
 
 
 
-    public void loginUser(String username, String password, Boolean rememberMe,String UID){
-        mapleEditor.putString(USER_NAME,username);
+    public void loginUser(String email, String password, Boolean rememberMe,String UID){
+        mapleEditor.putString(EMAIL_ID,email);
         mapleEditor.putString(PASSWORD, password);
         mapleEditor.putBoolean(REMEMBER_ME, rememberMe);
         mapleEditor.putString(FAUTH_ID, UID);
@@ -39,4 +40,11 @@ public class MapleSharedPreferences {
         return mapleSharedPreferences.getBoolean(REMEMBER_ME,false);
     }
 
+    public void setUserName(String username) {
+        mapleEditor.putString(USER_NAME,username);
+    }
+
+    public String getUserName() {
+        return mapleSharedPreferences.getString(USER_NAME,"");
+    }
 }
