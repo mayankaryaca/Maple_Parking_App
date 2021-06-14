@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SignUpActivity" />
 
-        <activity android:name=".LoginScreenActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".LoginScreenActivity"/>
 
         <activity android:name=".SplashScreenActivity"
                   android:theme="@style/AppTheme.NoActionBar">

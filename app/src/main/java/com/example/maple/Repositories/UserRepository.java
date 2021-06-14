@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.maple.Models.Parking;
 import com.example.maple.Models.Profile;
 import com.example.maple.Models.User;
+import com.example.maple.ViewControllers.MapleSharedPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +30,7 @@ public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final FirebaseFirestore db;
 
+    private MapleSharedPreferences mapleSharedPreferences;
     private final String COLLECTION_USER = "Users";
     private final String COLLECTION_PROFILE = "Profiles";
     private final String COLLECTION_PARKING = "Parkings";
@@ -182,9 +184,9 @@ public class UserRepository {
         }
     }
 
-    public void getAllParkings(){
+    public void getAllParkings(String user_id){
         try{
-            db.collection(COLLECTION_PARKING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection(COLLECTION_PARKING).whereEqualTo("user_id",user_id).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(QuerySnapshot value, FirebaseFirestoreException error) {
                     if(error!= null){

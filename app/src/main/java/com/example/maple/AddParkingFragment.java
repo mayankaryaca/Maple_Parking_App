@@ -133,7 +133,7 @@ public class AddParkingFragment extends Fragment {
                 String user_id= mapleSharedPreferences.getUserId();
                 String fetchedAddress = street_address + ","+locality+","+ country;
 
-                if(fetchedAddress.isEmpty()){
+                if(country.isEmpty()){
                     fetchedAddress = locationHelper.getAddress(context,lastLocation);
                 }
 //                Log.d(TAG,"Street Address : " + fetchedAddress);

@@ -15,11 +15,13 @@ public class ParkingViewModel extends AndroidViewModel {
     private static ParkingViewModel ourInstance;
     private final UserRepository userRepository = new UserRepository();
     public MutableLiveData<ArrayList<Parking>> allParkings;
+    MapleSharedPreferences mapleSharedPreferences = new MapleSharedPreferences(getApplication().getApplicationContext());
+
 
 
     public ParkingViewModel(Application application) {
         super(application);
-        this.userRepository.getAllParkings();
+        this.userRepository.getAllParkings(mapleSharedPreferences.getUserId());
         this.allParkings = this.userRepository.allParkings;
     }
     public static ParkingViewModel getInstance(Application application){

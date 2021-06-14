@@ -24,10 +24,9 @@ public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClick
     public ViewHolder(ParkingListCellLayoutBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
-//            this.binding.getRoot().setOnClickListener(this);
         this.binding.btnUpdateParking.setOnClickListener(this);
         this.binding.btnDeleteParking.setOnClickListener(this);
-        this.binding.tvBuildingCode.setOnClickListener(this);
+        this.binding.cellView.setOnClickListener(this);
 
     }
 
@@ -61,7 +60,7 @@ public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClick
                 break;
 
             }
-            case R.id.tvBuildingCode :{
+            case R.id.cellView :{
                 ParkingDetailsFragment myFragment = new ParkingDetailsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("PARKING",parking);

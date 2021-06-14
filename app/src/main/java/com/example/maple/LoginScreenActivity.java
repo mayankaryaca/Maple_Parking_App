@@ -31,6 +31,7 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
         firebaseAuthenticationController.getInstance();
         mapleSharedPreferences = new MapleSharedPreferences(getApplicationContext());
         this.binding.btLogin.setOnClickListener(this);
+        this.binding.btnSignUp.setOnClickListener(this);
 
     }
 
@@ -45,10 +46,11 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
                         Boolean rememberMe = this.binding.cbRememberMe.isChecked();
                         firebaseAuthenticationController.getCurrentUser();
 
+
                        this.firebaseAuthenticationController.firebaseAuthLoginUser(this,emailId,password).observe(this, new Observer<Boolean>() {
                            @Override
                            public void onChanged(Boolean aBoolean) {
-                               Log.d(TAG,"IsLoginSuccess : "+ aBoolean);
+
                                if(aBoolean){
                                    String uid = firebaseAuthenticationController.getUserId();
                                    mapleSharedPreferences.loginUser(emailId,password,rememberMe,uid);
@@ -61,9 +63,15 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
 
                            }
                        });
+                       break;
                     }
-                    case R.id.btSignUp: {
+                    case R.id.btnSignUp: {
+                        Log.d(TAG,"On sign up button clicke");
 
+                        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
                     }
                 }
             }
