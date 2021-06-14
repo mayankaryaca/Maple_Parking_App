@@ -63,7 +63,9 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
                        });
                     }
                     case R.id.btSignUp: {
-
+                        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }

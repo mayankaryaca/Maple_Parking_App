@@ -62,6 +62,7 @@ public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
             }
             case R.id.tvBuildingCode :{
+                Log.d("TAG","On Detail clicked " + parking.getDoc_id());
                 ParkingDetailsFragment myFragment = new ParkingDetailsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("PARKING",parking);

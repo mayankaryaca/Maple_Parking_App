@@ -56,7 +56,7 @@ public class UserRepository {
                             Log.d(TAG, "onSuccess: User document added successfully" + documentReference.getId());
                         }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
+                    .addOnFailureListener(new OnFailureListener()  {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e(TAG, "onFailure: Error creating User document on Firestore" + e.getLocalizedMessage());
