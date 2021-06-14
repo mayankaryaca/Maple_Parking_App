@@ -8,57 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.maple.Models.Profile;
+import com.example.maple.Models.User;
+import com.example.maple.databinding.FragmentEditProfileBinding;
+
 public class EditProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public EditProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditProfileFragment newInstance(String param1, String param2) {
-        EditProfileFragment fragment = new EditProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    FragmentEditProfileBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        Bundle bundle = this.getArguments();
+        Profile profile = (Profile) bundle.getSerializable("PROFILE");
+        User user = (User) bundle.getSerializable("USER");
+        profileUI(view, profile, user);
+
+        return view;}
+
+    private void profileUI(View view, Profile profile, User user) {
+        this.binding.etOutputFirstName.setText(profile.getFirstName());
+        this.binding.etOutputLastName.setText(profile.getLastName());
+        this.binding.etOutputEmail.setText(user.getEmail());
+        this.binding.etOutputContact.setText(profile.getContact());
+        this.binding.etOutputPlate.setText(profile.getCarPlate());
     }
 }

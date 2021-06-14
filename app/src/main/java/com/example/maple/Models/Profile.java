@@ -1,6 +1,8 @@
 package com.example.maple.Models;
 
-public class Profile  {
+import java.io.Serializable;
+
+public class Profile implements Serializable {
     private String id;
     private String firstName;
     private String lastName;

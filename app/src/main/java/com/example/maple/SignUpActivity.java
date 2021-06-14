@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Profile newProfile;
     private UserViewModel userViewModel;
     private FirebaseAuthenticationController firebaseAuthenticationController = new FirebaseAuthenticationController();
-    Boolean isValidInput;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: clearFields " );
         clearInputFields();
     }
 
@@ -66,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
     private Boolean validateInput(){
+        Boolean isValidInput = true;
             if (this.binding.etFirstName.getText().toString().isEmpty()){
                 this.binding.etFirstName.setError("Please enter Name");
                 isValidInput = false;
@@ -78,10 +81,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 this.binding.etEmail.setError("Please enter Email");
                 isValidInput = false;
             }
-            String regex = "(.+)@(.+)\\.([a-zA-Z]+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(this.binding.etEmail.getText().toString());
-            if (!matcher.matches()) {
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(this.binding.etEmail.getText().toString()).matches()) {
                 this.binding.etEmail.setError("Please enter Correct Email Format");
                 isValidInput = false;
             }
@@ -94,13 +95,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 this.binding.etConfirmPassword.setError("Password must have at least 6 charactes");
                 isValidInput = false;
             }
-            String password = this.binding.etPassword.getText().toString();
-            String confirmedPassword = this.binding.etConfirmPassword.getText().toString();
-            if (!password.equals(confirmedPassword)) {
-                this.binding.etPassword.setError("Password doesn't match");
-                this.binding.etConfirmPassword.setError("Password doesn't match");
-                isValidInput = false;
-            }
+
             if (this.binding.etCarPlate.getText().toString().isEmpty()){
                 this.binding.etCarPlate.setError("Please enter Car Plate");
                 isValidInput = false;
@@ -109,7 +104,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     this.binding.etCarPlate.getText().length() > 8) {
                 this.binding.etCarPlate.setError("Car Plate must have 2-8 characters");
                 isValidInput = false;
-            }else{
+            }
+            String password = this.binding.etPassword.getText().toString();
+            String confirmedPassword = this.binding.etConfirmPassword.getText().toString();
+            if (!password.equals(confirmedPassword)) {
+                this.binding.etPassword.setError("Password doesn't match");
+                this.binding.etConfirmPassword.setError("Password doesn't match");
+                isValidInput = false;
+            } else if (isValidInput) {
                 isValidInput = true;
             }
             Log.d(TAG, "validate - end: " + isValidInput);
@@ -118,7 +120,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void clearInputFields() {
-        isValidInput = true;
         this.binding.etFirstName.setText("");
         this.binding.etLastName.setText("");
         this.binding.etEmail.setText("");
