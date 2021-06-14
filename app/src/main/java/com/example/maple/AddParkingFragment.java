@@ -36,12 +36,15 @@ public class AddParkingFragment extends Fragment {
     private String lat;
     private String lng;
     Context context;
+    Boolean isValidInput = true;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentAddParkingBinding binding = FragmentAddParkingBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        this.view = view;
         this.context = this.getActivity().getApplication().getApplicationContext();
         mapleSharedPreferences = new MapleSharedPreferences(this.context);
 
@@ -133,35 +136,42 @@ public class AddParkingFragment extends Fragment {
                 String user_id= mapleSharedPreferences.getUserId();
                 String fetchedAddress = street_address + ","+locality+","+ country;
 
+//                validateInput(building_number,apt_number,plate_number,street_address);
+                if(building_number.length() < 4){
+                    binding.etBuildingCode.setError("Please enter an input more than 4 characters!");
+                    isValidInput = false;
+                }
+                if(apt_number.isEmpty()){
+                    binding.etApartmentNum.setError("Please enter an apartment number!");
+                    isValidInput = false;
+                }
+                if(plate_number.length()<2 || plate_number.length()>8){
+                    binding.etPlateNum.setError("Please enter min 2 and max 8 characters!");
+                    isValidInput = false;
+                }
+
                 if(country.isEmpty()){
                     fetchedAddress = locationHelper.getAddress(context,lastLocation);
                 }
-//                Log.d(TAG,"Street Address : " + fetchedAddress);
-//
-//                if(building_number.length() <4){
-//                    makeErrorToast("Please enter 5 digit building code!");
-//                }
-//                if(apt_number.isEmpty()){
-//                    makeErrorToast("Please enter apartment number!");
-//                }
-//                if(plate_number.length() <8 && plate_number.length()<2){
-//                    makeErrorToast("Please enter plate number - min 2, max 8 alphanumeric characters");
-//                }
-//
-                Parking parking = new Parking(building_number,apt_number,plate_number,number_of_hours,fetchedAddress,geo_location_lat,geo_location_lng,user_id);
-                boolean isSuccess = parkingViewModel.addNewParking(parking);
-                if(isSuccess){
-                    Toast.makeText(getContext(), "Parking Added successfully", Toast.LENGTH_SHORT).show();
 
-                }else{
-                    Toast.makeText(getContext(), "Error occured. Please try again later", Toast.LENGTH_SHORT).show();
+                if(isValidInput){
+                    Parking parking = new Parking(building_number,apt_number,plate_number,number_of_hours,fetchedAddress,geo_location_lat,geo_location_lng,user_id);
+                    boolean isSuccess = parkingViewModel.addNewParking(parking);
+                    if(isSuccess){
+                        makeToast("Parking Added successfully");
+
+                    }else{
+                        makeToast("Error occured. Please try again later");
+                    }
                 }
+
             }
         });
         return view;
     }
 
-    public void makeErrorToast(String message){
+    public void makeToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
 }

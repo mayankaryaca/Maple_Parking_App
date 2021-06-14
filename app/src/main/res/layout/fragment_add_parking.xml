@@ -148,7 +148,8 @@
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/geoSwitch" />
+                android:id="@+id/geoSwitch"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -220,6 +221,7 @@
                     android:id="@+id/btnFetchLocation"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
         <Button
             android:layout_width="match_parent"

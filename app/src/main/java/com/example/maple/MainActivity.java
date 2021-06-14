@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     public final String TAG = this.getClass().getCanonicalName();
     private LocationHelper locationHelper;
     private ParkingViewModel parkingViewModel;
-    private ArrayList<Parking> parkingList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment welcomeScreenMaple = new WelcomeScreenMaple();
         loadFragment(welcomeScreenMaple);
-//        if(parkingList.isEmpty()){
-//            Fragment welcomeScreenMaple = new WelcomeScreenMaple();
-//            loadFragment(welcomeScreenMaple);
-//        }else{
-//            Fragment parkingListFragment = new ParkingListFragment();
-//            loadFragment(parkingListFragment);
-//        }
-
-
 
         this.binding.fabAddParking.setOnClickListener(new View.OnClickListener() {
             @Override

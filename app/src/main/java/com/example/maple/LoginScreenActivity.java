@@ -19,8 +19,9 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
     ActivityLoginScreenBinding binding;
     MapleSharedPreferences mapleSharedPreferences;
     FirebaseAuthenticationController firebaseAuthenticationController = new FirebaseAuthenticationController();
-
+    Boolean isValidInput = false;
     public final String TAG = this.getClass().getCanonicalName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,25 +45,31 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
                         String emailId = this.binding.etLoginEmailId.getText().toString();
                         String password = this.binding.etEditPassword.getText().toString();
                         Boolean rememberMe = this.binding.cbRememberMe.isChecked();
-                        firebaseAuthenticationController.getCurrentUser();
+                        validateInput(emailId,password);
+
+                        if(isValidInput) {
+                            firebaseAuthenticationController.getCurrentUser();
 
 
-                       this.firebaseAuthenticationController.firebaseAuthLoginUser(this,emailId,password).observe(this, new Observer<Boolean>() {
-                           @Override
-                           public void onChanged(Boolean aBoolean) {
-                               Log.d(TAG,"IsLoginSuccess : "+ aBoolean);
-                               if(aBoolean){
-                                   String uid = firebaseAuthenticationController.getUserId();
-                                   mapleSharedPreferences.loginUser(emailId,password,rememberMe,uid);
-                                   Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                   startActivity(intent);
-                                   finish();
-                               }else{
-                                   Toast.makeText(getApplicationContext(), "Please Enter valid email/password!", Toast.LENGTH_SHORT).show();
-                               }
+                            this.firebaseAuthenticationController.firebaseAuthLoginUser(this, emailId, password).observe(this, new Observer<Boolean>() {
+                                @Override
+                                public void onChanged(Boolean aBoolean) {
+                                    Log.d(TAG, "IsLoginSuccess : " + aBoolean);
+                                    if (aBoolean) {
+                                        String uid = firebaseAuthenticationController.getUserId();
+                                        mapleSharedPreferences.loginUser(emailId, password, rememberMe, uid);
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Please Enter valid email/password!", Toast.LENGTH_SHORT).show();
+                                    }
 
-                           }
-                       });
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Please Enter Email/Password!", Toast.LENGTH_SHORT).show();
+                        }
                        break;
                     }
                     case R.id.btnSignUp: {
@@ -75,5 +82,20 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             }
+    }
+
+    public Boolean validateInput(String emailId, String password){
+
+        if(emailId.isEmpty()){
+            this.binding.etLoginEmailId.setError("Please enter a username!");
+            isValidInput = false;
+        }
+        if(password.isEmpty()){
+            this.binding.etEditPassword.setError("Please enter a password!");
+            isValidInput = false;
+        }else{
+            isValidInput = true;
+        }
+        return isValidInput;
     }
 }
