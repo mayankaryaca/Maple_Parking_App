@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,6 +55,7 @@ public class ParkingListFragment extends Fragment {
         this.parkingViewModel = ParkingViewModel.getInstance(getActivity().getApplication());
         recieveParkingData();
 
+
         return view;
     }
 
@@ -80,4 +82,6 @@ public class ParkingListFragment extends Fragment {
             }
         });
     }
+
+
 }

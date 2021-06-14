@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -15,17 +16,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.maple.Helpers.LocationHelper;
+import com.example.maple.Models.Parking;
+import com.example.maple.Models.Profile;
+import com.example.maple.ViewControllers.MapleSharedPreferences;
+import com.example.maple.ViewControllers.ParkingViewModel;
+import com.example.maple.ViewControllers.UserViewModel;
 import com.example.maple.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     public final String TAG = this.getClass().getCanonicalName();
     private LocationHelper locationHelper;
-    private Location lastLocation;
+    private ParkingViewModel parkingViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.locationHelper = LocationHelper.getInstance();
         this.locationHelper.checkPermissions(this);
+        this.parkingViewModel = ParkingViewModel.getInstance(this.getApplication());
 
-        Fragment parkingListFragment = new ParkingListFragment();
-        loadFragment(parkingListFragment);
+        Fragment welcomeScreenMaple = new WelcomeScreenMaple();
+        loadFragment(welcomeScreenMaple);
 
         this.binding.fabAddParking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.maple_profile:
                         Log.d("TAG", "Profile clicked");
+
                         Fragment profileFragment = new ProfileFragment();
                         loadFragment(profileFragment);
 
@@ -70,14 +82,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             } });
+
+        this.parkingViewModel.allParkings.observe(this, new Observer<List<Parking>>() {
+            @Override
+            public void onChanged(List<Parking> parkings) {
+                if(!parkings.isEmpty()){
+                    Fragment parkingListFragment = new ParkingListFragment();
+                    loadFragment(parkingListFragment);
+                }
+            }
+        });
+
+
     }
 
 
 
     private void loadFragment(Fragment fragment) {
-        // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//frame_container is your layout name in xml file
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

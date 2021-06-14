@@ -14,6 +14,9 @@ import com.example.maple.Models.Profile;
 import com.example.maple.Models.User;
 import com.example.maple.Repositories.FirebaseAuthenticationController;
 import com.example.maple.ViewControllers.UserViewModel;
+import com.example.maple.Repositories.FirebaseAuthenticationController;
+import com.example.maple.ViewControllers.MapleSharedPreferences;
+
 import com.example.maple.databinding.ActivitySignUpBinding;
 
 import java.util.regex.Matcher;
@@ -26,7 +29,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Profile newProfile;
     private UserViewModel userViewModel;
     private FirebaseAuthenticationController firebaseAuthenticationController = new FirebaseAuthenticationController();
-
+    Boolean isValidInput;
+    private MapleSharedPreferences mapleSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         View view = this.binding.getRoot();
         setContentView(view);
 
+        mapleSharedPreferences = new MapleSharedPreferences(getApplicationContext());
         this.userViewModel = UserViewModel.getInstance(this.getApplication());
         this.firebaseAuthenticationController.getInstance();
 
@@ -170,6 +175,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "saveUser - Go to Login " + newUser.toString() );
             this.userViewModel.addUser(newUser);
             this.userViewModel.addProfile(newProfile);
+            mapleSharedPreferences.setUserName(newProfile.getFirstName());
             Toast.makeText(this, "User Successfully Created ", Toast.LENGTH_SHORT).show();
         }
 
@@ -181,7 +187,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         private void goToLogin() {
             Log.d(TAG, "Go Back to Login " );
             Intent intent = new Intent(getApplicationContext(), LoginScreenActivity.class);
-            //    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
