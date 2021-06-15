@@ -64,7 +64,6 @@ public class ProfileFragment extends Fragment {
     private void profileUI(Profile profile) {
         this.binding.tvDisplayFirstName.setText(profile.getFirstName());
         this.binding.tvDisplayLastName.setText(profile.getLastName());
-//        this.binding.tvDisplayEmail.setText(user.getEmail());
         this.binding.tvDisplayPhoneNumber.setText(profile.getContact());
         this.binding.tvDisplayPlateNumber.setText(profile.getCarPlate());
     }

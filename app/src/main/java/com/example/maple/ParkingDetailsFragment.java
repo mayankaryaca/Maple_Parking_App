@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +59,15 @@ public class ParkingDetailsFragment extends Fragment {
         this.binding.btnShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Set mapView
+                Log.d(TAG, "Lat " + parkingDetail.getGeo_location_lat() + " Lng " + parkingDetail.getGeo_location_lng());
+
                 Intent mapIntent = new Intent(context, MapsActivity.class);
                 mapIntent.putExtra("EXTRA_LAT", parkingDetail.getGeo_location_lat());
                 mapIntent.putExtra("EXTRA_LNG", parkingDetail.getGeo_location_lng());
                 startActivity(mapIntent);
             }
         });
-
         return view;
     }
 

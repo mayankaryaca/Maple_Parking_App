@@ -42,8 +42,9 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository.getProfile(id);
         this.userProfile = this.userRepository.userProfile;
     }
-    public void updateProfile(Profile profile){
-        this.userRepository.updateProfile(profile);
+    public boolean updateProfile(Profile profile){
+        boolean isSuccess = this.userRepository.updateProfile(profile);
+        return isSuccess;
     }
 
     public void updateStatus(String userID){

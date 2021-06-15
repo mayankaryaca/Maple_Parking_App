@@ -30,7 +30,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Display First Name"
         android:id="@+id/tvDisplayFirstName"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
@@ -58,40 +57,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Display Last Name "
         android:id="@+id/tvDisplayLastName"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintTop_toBottomOf="@+id/tvLastName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvEmail"
-        android:text="Email"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
-        android:fontFamily = "serif-monospace"
-        android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplayLastName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="display email"
-        android:id="@+id/tvDisplayEmail"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -106,7 +76,7 @@
         android:paddingTop="20dp"
         android:fontFamily = "serif-monospace"
         android:textColor="@color/app_color"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplayEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -114,7 +84,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Display Phone Number"
         android:id="@+id/tvDisplayPhoneNumber"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
@@ -143,7 +112,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Display Plate Number"
         android:id="@+id/tvDisplayPlateNumber"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
@@ -168,7 +136,7 @@
         android:id="@+id/btDeleteAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete Account ?"
+        android:text="Delete Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
