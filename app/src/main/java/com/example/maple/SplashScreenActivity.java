@@ -31,7 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         View view = this.binding.getRoot();
         setContentView(view);
 
-        rotate = new RotateAnimation(0, 500);
+        rotate = new RotateAnimation(0, 100);
         rotate.setDuration(1000);
         this.binding.appCompatImageView.startAnimation(rotate);
 
@@ -44,6 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 try {
                     if(isRememberMeValid){
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }else{

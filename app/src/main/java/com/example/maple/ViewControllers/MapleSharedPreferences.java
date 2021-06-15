@@ -33,6 +33,10 @@ public class MapleSharedPreferences {
     }
 
 
+    public void logOutUser(){
+        mapleEditor.clear();
+        mapleEditor.commit();
+    }
     public String getUserId(){
         return mapleSharedPreferences.getString(FAUTH_ID,"");
     }
@@ -46,5 +50,9 @@ public class MapleSharedPreferences {
 
     public String getUserName() {
         return mapleSharedPreferences.getString(USER_NAME,"");
+    }
+
+    public String getEmailId(){
+        return mapleSharedPreferences.getString(EMAIL_ID,"");
     }
 }
