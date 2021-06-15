@@ -163,6 +163,9 @@ public class AddParkingFragment extends Fragment {
                     }else{
                         makeToast("Error occured. Please try again later");
                     }
+                }else{
+                    makeToast("Error occured. Please fill the fields correctly");
+
                 }
 
             }
@@ -173,5 +176,6 @@ public class AddParkingFragment extends Fragment {
     public void makeToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
 
 }

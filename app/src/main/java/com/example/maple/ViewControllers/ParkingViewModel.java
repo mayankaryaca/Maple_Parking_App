@@ -4,6 +4,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.maple.Models.Parking;
 import com.example.maple.Repositories.UserRepository;
@@ -34,6 +35,12 @@ public class ParkingViewModel extends AndroidViewModel {
     public boolean addNewParking(Parking newParking){
        boolean isSuccess =  this.userRepository.addParking(newParking);
        return isSuccess;
+    }
+
+    public void updateParking(Parking parking){
+
+        String doc_id = parking.getDoc_id();
+        this.userRepository.updateParking(parking, doc_id);
     }
 
     public void deleteparking(String docId){

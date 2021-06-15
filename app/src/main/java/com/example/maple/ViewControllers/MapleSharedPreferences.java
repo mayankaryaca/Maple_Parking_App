@@ -46,6 +46,7 @@ public class MapleSharedPreferences {
 
     public void setUserName(String username) {
         mapleEditor.putString(USER_NAME,username);
+        mapleEditor.commit();
     }
 
     public String getUserName() {
