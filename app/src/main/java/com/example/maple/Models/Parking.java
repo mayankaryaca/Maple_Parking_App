@@ -28,6 +28,18 @@ public class Parking implements Serializable {
         this.user_id = user_id;
     }
 
+    public Parking(String building_number, String apt_number, String plate_number, String number_of_hours, String street_address, String geo_location_lat, String geo_location_lng, String user_id, String doc_id) {
+        this.building_number = building_number;
+        this.apt_number = apt_number;
+        this.plate_number = plate_number;
+        this.number_of_hours = number_of_hours;
+        this.street_address = street_address;
+        this.geo_location_lat = geo_location_lat;
+        this.geo_location_lng = geo_location_lng;
+        this.user_id = user_id;
+        this.doc_id = doc_id;
+    }
+
     @Override
     public String toString() {
         return "Parking{" +

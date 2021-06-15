@@ -263,4 +263,36 @@ public class UserRepository {
             Log.e(TAG, "Error" + e.getLocalizedMessage());
         }
     }
+
+    public void updateParking(Parking parking, String doc_id){
+        try{
+            Map<String,Object> newParkingData = new HashMap<>();
+            newParkingData.put( "building_number", parking.getBuilding_number());
+            newParkingData.put( "apt_number", parking.getApt_number());
+            newParkingData.put( "plate_number", parking.getPlate_number());
+            newParkingData.put( "number_of_hours", parking.getNumber_of_hours());
+            newParkingData.put( "street_address", parking.getStreet_address());
+            newParkingData.put( "geo_location_lat", parking.getGeo_location_lat());
+            newParkingData.put( "geo_location_lng", parking.getGeo_location_lng());
+            newParkingData.put( "user_id", parking.getUser_id());
+
+            Log.d(TAG,"Doc id" + doc_id);
+            db.collection(COLLECTION_PARKING).document(doc_id).update(newParkingData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "onSuccess: Document updated successfully");
+                            updateSuccess = true;
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
+                        }
+                    });
+        }catch (Exception ex){
+            Log.e(TAG, "updateProfile: Unable to update document " + ex.getLocalizedMessage() );
+        }
+    }
 }

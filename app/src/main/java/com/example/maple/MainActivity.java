@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         this.binding.fabAddParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG", "Add Parking clicked");
                 Fragment addParkingFragment = new AddParkingFragment();
                 loadFragment(addParkingFragment);
             }
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.maple_profile:
                         Log.d("TAG", "Profile clicked");
-
                         Fragment profileFragment = new ProfileFragment();
                         loadFragment(profileFragment);
 
@@ -96,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
@@ -105,4 +101,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Fragment parkingListFragment = new ParkingListFragment();
+        loadFragment(parkingListFragment);
+    }
 }

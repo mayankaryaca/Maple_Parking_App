@@ -118,7 +118,7 @@ public class LocationHelper {
         try{
             addressList = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 2);
             Address addressObj = addressList.get(0);
-            String fullAddress = addressObj.getFeatureName() + addressObj.getSubAdminArea() +addressObj.getAdminArea();
+            String fullAddress = addressObj.getFeatureName()+"," + addressObj.getSubAdminArea() +"," +addressObj.getAdminArea();
             return fullAddress;
         }catch(Exception ex){
             Log.e(TAG, "getAddress: Couldn't get the address for given location" + ex.getLocalizedMessage() );
