@@ -29,6 +29,7 @@ public class EditProfileFragment extends Fragment {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        context  = this.getContext();
         this.userViewModel = UserViewModel.getInstance(getActivity().getApplication());
         Bundle bundle = this.getArguments();
         profile = (Profile) bundle.getSerializable("Profile");
@@ -50,12 +51,7 @@ public class EditProfileFragment extends Fragment {
                 if(validateInput()) {
                     Profile newProfile = new Profile(profile.getId(), firstName, lastName, phoneNumber, plateNumber);
                     boolean isSuccess = userViewModel.updateProfile(newProfile);
-                    if (isSuccess) {
-                        makeToast("Update Profile successfully");
-
-                    } else {
-                        makeToast("Update Profile - Error occured. Please try again later");
-                    }
+                    makeToast("Profile updated successfully");
                 }
             }
         });
@@ -97,5 +93,6 @@ public class EditProfileFragment extends Fragment {
     public void makeToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
 
 }
