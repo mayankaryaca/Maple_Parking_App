@@ -10,7 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,8 +22,9 @@ public class FirebaseAuthenticationController {
     String TAG = this.getClass().getCanonicalName();
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
-    MutableLiveData<Boolean> isLoginSuccess = new MutableLiveData<>() ;
-    MutableLiveData<Boolean> isCreated = new MutableLiveData<>() ;
+    MutableLiveData<Boolean> isLoginSuccess = new MutableLiveData<>();
+    MutableLiveData<Boolean> isCreated = new MutableLiveData<>();
+    MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();
 
     public FirebaseAuth getInstance(){
         mAuth = FirebaseAuth.getInstance();
@@ -81,4 +84,37 @@ public class FirebaseAuthenticationController {
         String userId = currentUser.getUid();
         return userId;
     }
+
+    public void firebaseReauthenticate(Context context,String email, String password) {
+        AuthCredential credential = EmailAuthProvider
+            .getCredential(email, password);
+
+    // Prompt the user to re-provide their sign-in credentials
+        currentUser.reauthenticate(credential)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            Log.d(TAG, "Firebase - User re-authenticated.");
+        }
+    });
+    }
+
+    public  MutableLiveData<Boolean> firebaseDeleteUser(Context context, FirebaseUser currentUser) {
+        currentUser.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Delete User Successfully");
+                            isDeleted.setValue(true);
+                        } else {
+                            Log.w(TAG, "cDelete User Failure", task.getException());
+                            isDeleted.setValue(false);
+                        }
+                    }
+                });
+
+        return isDeleted;
+    }
+
 }

@@ -99,7 +99,8 @@ public class UserRepository {
         }
     }
 
-    public void updateProfile(Profile profile){
+    boolean updateSuccess = false;
+    public boolean updateProfile(Profile profile){
         try{
             Map<String, Object> updateInfo = new HashMap<>();
             updateInfo.put("firstName", profile.getFirstName());
@@ -113,6 +114,7 @@ public class UserRepository {
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d(TAG, "onSuccess: Document updated successfully");
+                            updateSuccess = true;
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -121,8 +123,10 @@ public class UserRepository {
                             Log.d(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
                         }
                     });
+                    return updateSuccess;
         }catch (Exception ex){
             Log.e(TAG, "updateProfile: Unable to update document " + ex.getLocalizedMessage() );
+            return updateSuccess;
         }
     }
 
