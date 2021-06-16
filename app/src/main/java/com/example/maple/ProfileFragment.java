@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     MapleSharedPreferences mapleSharedPreferences;
     private UserViewModel userViewModel;
     Profile userProfile;
+    User currentUser;
     FirebaseAuthenticationController firebaseAuthenticationController = new FirebaseAuthenticationController();
 
 
@@ -44,6 +45,7 @@ public class ProfileFragment extends Fragment {
         mapleSharedPreferences = new MapleSharedPreferences(getActivity());
         this.userViewModel = UserViewModel.getInstance(getActivity().getApplication());
         userViewModel.getUserProfile(mapleSharedPreferences.getUserId());
+        userViewModel.getUser(mapleSharedPreferences.getUserId());
 
         this.userViewModel.userProfile.observe(getActivity(), new Observer<Profile>() {
             @Override
@@ -51,6 +53,15 @@ public class ProfileFragment extends Fragment {
                 userProfile = profile;
                 if(profile != null){
                     profileUI(profile);
+                }
+            }
+        });
+
+        this.userViewModel.user.observe(getActivity(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if(user != null){
+                    currentUser = user;
                 }
             }
         });
@@ -120,7 +131,11 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onChanged(Boolean aBoolean) {
                         if (aBoolean) {
+
                             mapleSharedPreferences.logOutUser();
+                            if(currentUser != null){
+                                userViewModel.updateUserActiveStatus(currentUser.getId());
+                            }
                             Toast.makeText(getContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), LoginScreenActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

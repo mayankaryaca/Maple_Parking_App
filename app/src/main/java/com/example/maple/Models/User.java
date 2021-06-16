@@ -8,6 +8,16 @@ public class User implements Serializable {
     private String password;
     private Boolean active;
 
+    public String getDoc_id() {
+        return doc_id;
+    }
+
+    public void setDoc_id(String doc_id) {
+        this.doc_id = doc_id;
+    }
+
+    String doc_id;
+
     public User(String email, String password, Boolean active) {
         this.email = email;
         this.password = password;

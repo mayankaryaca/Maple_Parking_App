@@ -138,9 +138,10 @@ public class LocationHelper {
             if (address==null) {
                 return null;
             }
-            mAddress.setValue(address.get(0));
 
-            Log.d(TAG,mAddress.getValue().toString());
+            if(!address.isEmpty()){
+                mAddress.setValue(address.get(0));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
