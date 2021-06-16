@@ -159,6 +159,58 @@ public class UserRepository {
         }
     }
 
+    public void getUser(String id){
+        try{
+            db.collection(COLLECTION_USER).whereEqualTo("id",id).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(QuerySnapshot value, FirebaseFirestoreException error) {
+                    User currentUser = null;
+                    if(error!= null){
+                        Log.e(TAG, "OnEvent : Listening to user failed due to : " + error);
+                        return;
+                    }
+                    if(value.isEmpty()){
+                        Log.d(TAG,"Empty or not user in collection" + value);
+                    }else{
+                        //We have changes in the collection
+                        Log.d(TAG,"OnEvent : user data : "+ value);
+                        for(DocumentSnapshot document : value.getDocuments()){
+                            currentUser = document.toObject(User.class);
+                            currentUser.setId(document.getId());
+                        }
+                    }
+                    //here it is telling change to other UI
+                    userLogin.postValue(currentUser);
+                }
+            });
+        }catch(Exception e){
+            Log.e(TAG,"Retrieve Parkings" + e);
+        }
+    }
+    public void updateUserAcitve(String doc_id){
+        try{
+            Map<String,Object> newUserData = new HashMap<>();
+            newUserData.put( "active", false);
+
+            Log.d(TAG,"Doc id" + doc_id);
+            db.collection(COLLECTION_USER).document(doc_id).update(newUserData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "onSuccess: Document updated successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
+                        }
+                    });
+        }catch (Exception ex){
+            Log.e(TAG, "updateProfile: Unable to update document " + ex.getLocalizedMessage() );
+        }
+    }
+
     public void updateStatus(String userID){
         Log.d(TAG, " Update (Active false)  " + userID);
 

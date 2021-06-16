@@ -15,7 +15,7 @@ public class UserViewModel extends AndroidViewModel {
 
     private static UserViewModel ourInstance;
     private final UserRepository userRepository = new UserRepository();
-    public MutableLiveData<User> matchedUser;
+    public MutableLiveData<User> user = new MutableLiveData<>();
     public MutableLiveData<Profile> userProfile = new MutableLiveData<Profile>();
 
 
@@ -51,4 +51,12 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository.updateStatus(userID);
     }
 
+    public void getUser(String userId){
+        this.userRepository.getUser(userId);
+        this.user = this.userRepository.userLogin;
+    }
+
+    public void updateUserActiveStatus(String doc_id){
+        this.userRepository.updateUserAcitve(doc_id);
+    }
 }

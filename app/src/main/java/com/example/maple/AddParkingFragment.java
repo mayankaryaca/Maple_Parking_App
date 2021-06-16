@@ -152,6 +152,7 @@ public class AddParkingFragment extends Fragment {
 
                 if(country.isEmpty()){
                     fetchedAddress = locationHelper.getAddress(context,lastLocation);
+
                 }
 
                 if(isValidInput){
